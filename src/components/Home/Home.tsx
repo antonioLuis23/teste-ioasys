@@ -5,6 +5,7 @@ import { BookType } from "../../types/BookType";
 import BooksContainer from "../Books/BooksContainer";
 import ModalBook from "../Books/ModalBook";
 import Footer from "./Footer";
+import Header from "./Header";
 
 const Home = () => {
   const [books, setBooks] = useState(new Array<BookType>());
@@ -35,8 +36,9 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-blend-darken bg-cover bg-background-home1 ">
-      <div className="bg-cover bg-background-home2  py-6 px-24">
+    <div className="bg-blend-darken bg-repeat bg-cover bg-background-home1 ">
+      <div className="bg-cover bg-repeat bg-background-home2  py-6 px-16">
+        <Header />
         <BooksContainer books={books} />
         <Footer
           page={currentPage}

@@ -4,7 +4,8 @@ const AuthContext = createContext({
   token: "",
   refreshToken: "",
   isLoggedIn: false,
-  login: (token: string, refreshToken: string) => {},
+  name: "",
+  login: (token: string, refreshToken: string, name: string) => {},
   logout: () => {},
 });
 
@@ -20,6 +21,12 @@ const retrieveStoredRefreshToken = () => {
   return refreshToken;
 };
 
+const retrieveName = () => {
+  let name = localStorage.getItem("name");
+  name = name === null ? "" : name;
+  return name;
+};
+
 type AuthContextType = {
   children: React.ReactNode;
 };
@@ -28,17 +35,24 @@ export const AuthContextProvider = ({ children }: AuthContextType) => {
   const [refreshToken, setRefreshToken] = useState(
     retrieveStoredRefreshToken()
   );
+  const [name, setName] = useState(retrieveName());
+
   const logoutHandler = useCallback(() => {
     setToken("");
     setRefreshToken("");
+    setName("");
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("name");
   }, []);
 
-  const loginHandler = (token: string, refreshToken: string) => {
+  const loginHandler = (token: string, refreshToken: string, name: string) => {
     setToken(token);
+    setRefreshToken(refreshToken);
+    setName(name);
     localStorage.setItem("token", token);
     localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("name", name);
   };
 
   const userIsLoggedIn = token !== "";
@@ -46,6 +60,7 @@ export const AuthContextProvider = ({ children }: AuthContextType) => {
   const contextValue = {
     token,
     refreshToken,
+    name,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,

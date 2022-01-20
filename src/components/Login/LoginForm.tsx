@@ -14,7 +14,6 @@ const LoginForm = () => {
   const loginSubmit = async (e: any) => {
     e.preventDefault();
     console.log(email, password);
-    console.log("Login");
     const response = await axios({
       method: "post",
       url: "https://books.ioasys.com.br/api/v1/auth/sign-in",
@@ -27,7 +26,8 @@ const LoginForm = () => {
     if (response.status === 200) {
       authCtx.login(
         response.headers.authorization,
-        response.headers["refresh-token"]
+        response.headers["refresh-token"],
+        response.data.name
       );
       navigate("/home");
     }
