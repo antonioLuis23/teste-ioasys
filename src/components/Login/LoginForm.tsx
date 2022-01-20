@@ -13,7 +13,6 @@ const LoginForm = () => {
 
   const loginSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(email, password);
     const response = await axios({
       method: "post",
       url: "https://books.ioasys.com.br/api/v1/auth/sign-in",
@@ -22,7 +21,6 @@ const LoginForm = () => {
         password,
       },
     });
-    console.log("response", response);
     if (response.status === 200) {
       authCtx.login(
         response.headers.authorization,

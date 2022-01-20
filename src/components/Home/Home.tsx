@@ -13,24 +13,23 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState(0);
   const authCtx = useContext(AuthContext);
   const getBooksResponse = (response: any) => {
-    console.log(response);
     setBooks(response.data.data);
     setcurrentPage(response.data.page);
     setTotalPages(Math.ceil(response.data.totalPages));
   };
   useEffect(() => {
-    getBooks(1, 12, authCtx.token).then(getBooksResponse);
-  }, [authCtx.token]);
+    getBooks(1, 12, authCtx).then(getBooksResponse);
+  }, [authCtx]);
 
   const getPageBefore = () => {
     if (currentPage > 1) {
-      getBooks(currentPage - 1, 12, authCtx.token).then(getBooksResponse);
+      getBooks(currentPage - 1, 12, authCtx).then(getBooksResponse);
       setcurrentPage((prevPage) => prevPage - 1);
     }
   };
   const getPageAfter = () => {
     if (currentPage < totalPages) {
-      getBooks(currentPage + 1, 12, authCtx.token).then(getBooksResponse);
+      getBooks(currentPage + 1, 12, authCtx).then(getBooksResponse);
       setcurrentPage((prevPage) => prevPage + 1);
     }
   };
