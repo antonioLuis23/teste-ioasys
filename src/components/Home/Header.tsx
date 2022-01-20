@@ -15,11 +15,11 @@ const Header = () => {
         <img src="/images/logo header.png" alt="logo" className="w-28" />
       </div>
       <div className="flex gap-2">
-        <p className=" pt-1 text-[0.8rem]">{`Bem vindo, ${authCtx.name}`}</p>
+        <p className="sm:block hidden pt-1 text-[0.8rem]">{`Bem vindo, ${authCtx.name}`}</p>
         <img
           src="/images/Log Out.png"
           alt="logo"
-          className="w-7"
+          className="w-7 h-7"
           onClick={logoutHandler}
         />
       </div>

@@ -7,6 +7,7 @@ const AuthContext = createContext({
   name: "",
   login: (token: string, refreshToken: string, name: string) => {},
   logout: () => {},
+  refreshTokenHandler: (token: string, refreshToken: string) => {},
 });
 
 const retrieveStoredToken = () => {
@@ -55,6 +56,13 @@ export const AuthContextProvider = ({ children }: AuthContextType) => {
     localStorage.setItem("name", name);
   };
 
+  const refreshTokenHandler = (token: string, refreshToken: string) => {
+    setToken(token);
+    setRefreshToken(refreshToken);
+    localStorage.setItem("token", token);
+    localStorage.setItem("refreshToken", refreshToken);
+  };
+
   const userIsLoggedIn = token !== "";
 
   const contextValue = {
@@ -64,6 +72,7 @@ export const AuthContextProvider = ({ children }: AuthContextType) => {
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
+    refreshTokenHandler,
   };
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
